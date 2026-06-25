@@ -1,31 +1,25 @@
 #include "iostream"
 #include "vector"
-#include "cassert"
 using namespace std;
 
 class Solution
 {
 public:
-    int removeDuplicates(vector<int> &nums)
+    int removeElement(vector<int> &nums, int val)
     {
         if (nums.empty())
-        {
             return 0;
-        }
-
-        int unique_ptr = 0;
-        int scan_ptr = 1; // first char is always unique. we start checking for more unique characters from the 2nd char
-
-        for (scan_ptr; scan_ptr < nums.size(); scan_ptr++)
+        int curr = 0;
+        int next = 0;
+        for (next; next < nums.size(); next++)
         {
-            if (nums[scan_ptr] != nums[unique_ptr])
+            if (nums[next] != val)
             {
-                unique_ptr++;
-                nums[unique_ptr] = nums[scan_ptr];
+                nums[curr] = nums[next];
+                curr++;
             }
         }
-
-        return unique_ptr + 1;
+        return curr;
     }
 };
 
@@ -34,9 +28,9 @@ int main()
     Solution sol;
 
     vector<int> nums_1 = {1, 1, 2, 3, 3, 3, 4, 5, 5, 6};
-    vector<int> nums_2 = {0, 1, 2, 3, 4, 5, 6, 6, 7};
+    int val = 3;
 
-    int k1 = sol.removeDuplicates(nums_1);
+    int k1 = sol.removeElement(nums_1, val);
     cout << "k = " << k1 << endl;
     cout << "nums = [";
     for (int i = 0; i < nums_1.size(); i++)
